@@ -85,6 +85,36 @@ export interface DailyCheckin {
   note: string | null
 }
 
+export type PhotoAngle = 'front' | 'side' | 'back'
+
+export interface ProgressPhoto {
+  id: string
+  user_id: string
+  photo_url: string // storage path within the progress-photos bucket
+  angle: PhotoAngle
+  taken_at: string
+  week_no: number | null
+  revealed: boolean
+}
+
+export interface WeightLog {
+  id: string
+  user_id: string
+  weight_kg: number
+  logged_on: string
+}
+
+export interface Measurement {
+  id: string
+  user_id: string
+  measured_on: string
+  waist_cm: number | null
+  hip_cm: number | null
+  chest_cm: number | null
+  arm_cm: number | null
+  thigh_cm: number | null
+}
+
 export interface SharingPrefs {
   user_id: string
   weight_visible: boolean

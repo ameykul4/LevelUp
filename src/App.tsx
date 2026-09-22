@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { BottomNav } from './components/nav/BottomNav'
 import { supabase } from './lib/supabase'
@@ -10,6 +10,9 @@ import { Home } from './pages/Home'
 import { Onboarding } from './pages/Onboarding'
 import { Settings } from './pages/Settings'
 import { useAuthStore } from './store/useAuthStore'
+
+const Photos = lazy(() => import('./pages/Photos').then((m) => ({ default: m.Photos })))
+const Reports = lazy(() => import('./pages/Reports').then((m) => ({ default: m.Reports })))
 
 const queryClient = new QueryClient()
 
@@ -86,6 +89,22 @@ function Gate() {
         <Route path="/" element={<Home />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/checkin" element={<CheckIn />} />
+        <Route
+          path="/photos"
+          element={
+            <Suspense fallback={<Splash />}>
+              <Photos />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <Suspense fallback={<Splash />}>
+              <Reports />
+            </Suspense>
+          }
+        />
         <Route path="/settings" element={<Settings />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
