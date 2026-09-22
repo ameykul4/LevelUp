@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { PartnerSection } from '../components/settings/PartnerSection'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { localDateISO } from '../lib/date'
@@ -148,6 +149,8 @@ function SettingsForm({ profile, userId }: { profile: Profile; userId: string })
 
   return (
     <>
+      <PartnerSection userId={userId} />
+
       <Card className="flex flex-col gap-3">
         <p className="text-sm font-medium">Weigh in</p>
         <div className="flex gap-2">

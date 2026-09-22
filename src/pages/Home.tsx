@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
+import { TogetherCard } from '../components/home/TogetherCard'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
@@ -211,12 +212,7 @@ export function Home() {
         </div>
       </Card>
 
-      <Card className="bg-together text-white">
-        <p className="font-display text-lg mb-1">LevelUp together</p>
-        <p className="text-sm text-white/90">
-          Pair with your partner to unlock the shared feed, streak and campaign map.
-        </p>
-      </Card>
+      <TogetherCard userId={userId} />
     </div>
   )
 }

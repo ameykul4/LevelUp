@@ -85,6 +85,14 @@ export interface DailyCheckin {
   note: string | null
 }
 
+export interface SharingPrefs {
+  user_id: string
+  weight_visible: boolean
+  measurements_visible: boolean
+  photos_visible: boolean
+  diary_visible: boolean
+}
+
 export type QuestKind = 'steps' | 'protein' | 'workout' | 'rest' | 'water' | 'photo'
 export type QuestCategory = 'strength' | 'agility' | 'recovery' | 'shield' | 'recon'
 
