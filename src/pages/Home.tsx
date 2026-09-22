@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
 import { LootDropCard } from '../components/home/LootDropCard'
+import { StepsCard } from '../components/home/StepsCard'
 import { TogetherCard } from '../components/home/TogetherCard'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
@@ -208,6 +209,8 @@ export function Home() {
         </div>
         <ProgressBar label="Today" current={waterMl} target={profile?.water_target_ml ?? 2500} unit="ml" color="you" />
       </Card>
+
+      <StepsCard userId={userId} />
 
       <Card>
         <div className="flex items-center justify-between mb-4">

@@ -97,6 +97,13 @@ export interface ProgressPhoto {
   revealed: boolean
 }
 
+export interface StepsRow {
+  user_id: string
+  step_date: string
+  step_count: number
+  synced_at: string
+}
+
 export interface WeightLog {
   id: string
   user_id: string
