@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { AddMealSheet } from '../components/diary/AddMealSheet'
 import { AddWorkoutSheet } from '../components/diary/AddWorkoutSheet'
 import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
+import { WeekStrip } from '../components/diary/WeekStrip'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { Sheet } from '../components/ui/Sheet'
@@ -17,18 +18,6 @@ const SLOTS: { key: MealSlot; label: string; emoji: string }[] = [
   { key: 'dinner', label: 'Dinner', emoji: '🌙' },
   { key: 'snack', label: 'Snacks', emoji: '🍎' },
 ]
-
-function shiftDate(date: string, days: number) {
-  const d = new Date(`${date}T00:00:00`)
-  d.setDate(d.getDate() + days)
-  return todayISO(d)
-}
-
-function formatDateLabel(date: string) {
-  if (date === todayISO()) return 'Today'
-  if (date === shiftDate(todayISO(), -1)) return 'Yesterday'
-  return new Date(`${date}T00:00:00`).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })
-}
 
 export function Diary() {
   const session = useAuthStore((s) => s.session)
@@ -106,19 +95,7 @@ export function Diary() {
 
   return (
     <div className="flex-1 px-5 py-8 max-w-lg mx-auto w-full flex flex-col gap-5">
-      <div className="flex items-center justify-between">
-        <button onClick={() => setDate(shiftDate(date, -1))} className="w-9 h-9 rounded-full bg-ink/5 text-ink-soft">
-          ‹
-        </button>
-        <h1 className="font-display text-xl">{formatDateLabel(date)}</h1>
-        <button
-          onClick={() => setDate(shiftDate(date, 1))}
-          disabled={date >= todayISO()}
-          className="w-9 h-9 rounded-full bg-ink/5 text-ink-soft disabled:opacity-30"
-        >
-          ›
-        </button>
-      </div>
+      <WeekStrip userId={userId} selectedDate={date} onSelect={setDate} />
 
       <PendingMealsBanner />
 
