@@ -1,0 +1,6 @@
+name = "levelup"
+compatibility_date = "2026-09-23"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
