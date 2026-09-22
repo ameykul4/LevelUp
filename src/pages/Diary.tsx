@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { AddMealSheet } from '../components/diary/AddMealSheet'
 import { AddWorkoutSheet } from '../components/diary/AddWorkoutSheet'
+import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { Sheet } from '../components/ui/Sheet'
@@ -119,6 +120,8 @@ export function Diary() {
           ›
         </button>
       </div>
+
+      <PendingMealsBanner />
 
       <Card tint="you">
         <div className="flex items-baseline justify-between mb-3">

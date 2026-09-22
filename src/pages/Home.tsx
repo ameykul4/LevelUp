@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
+import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
@@ -147,6 +148,8 @@ export function Home() {
         </div>
         <p className="text-sm text-ink-soft">❄️ {streak?.freezes_available ?? 0} freezes available</p>
       </div>
+
+      <PendingMealsBanner />
 
       {!checkin ? (
         <Card tint="her" className="flex items-center justify-between gap-3">
