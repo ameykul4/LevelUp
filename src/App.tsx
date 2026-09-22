@@ -8,6 +8,7 @@ import { CheckIn } from './pages/CheckIn'
 import { Diary } from './pages/Diary'
 import { Home } from './pages/Home'
 import { Onboarding } from './pages/Onboarding'
+import { Settings } from './pages/Settings'
 import { useAuthStore } from './store/useAuthStore'
 
 const queryClient = new QueryClient()
@@ -85,6 +86,7 @@ function Gate() {
         <Route path="/" element={<Home />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/checkin" element={<CheckIn />} />
+        <Route path="/settings" element={<Settings />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

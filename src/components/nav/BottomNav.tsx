@@ -4,6 +4,7 @@ const ITEMS = [
   { to: '/', label: 'Home', emoji: '🏠' },
   { to: '/diary', label: 'Diary', emoji: '📔' },
   { to: '/checkin', label: 'Check-in', emoji: '🌅' },
+  { to: '/settings', label: 'Settings', emoji: '⚙️' },
 ]
 
 export function BottomNav() {
