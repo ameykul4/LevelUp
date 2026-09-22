@@ -4,13 +4,10 @@ import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
+import { endOfLocalDayISO, localDateISO as todayISO, startOfLocalDayISO } from '../lib/date'
 import { supabase } from '../lib/supabase'
 import type { DailyCheckin, Meal, Profile, Quest, Streak, Workout } from '../lib/types'
 import { useAuthStore } from '../store/useAuthStore'
-
-function todayISO() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 const QUEST_LABEL: Record<Quest['kind'], string> = {
   water: 'Hit your water target',
@@ -51,7 +48,8 @@ export function Home() {
         .from('water_logs')
         .select('amount_ml')
         .eq('user_id', userId)
-        .gte('logged_at', `${todayISO()}T00:00:00`)
+        .gte('logged_at', startOfLocalDayISO(todayISO()))
+        .lt('logged_at', endOfLocalDayISO(todayISO()))
       if (error) throw error
       return data.reduce((sum, row) => sum + row.amount_ml, 0)
     },
@@ -64,7 +62,8 @@ export function Home() {
         .from('meals')
         .select('*')
         .eq('user_id', userId)
-        .gte('logged_at', `${todayISO()}T00:00:00`)
+        .gte('logged_at', startOfLocalDayISO(todayISO()))
+        .lt('logged_at', endOfLocalDayISO(todayISO()))
       if (error) throw error
       return data as Meal[]
     },

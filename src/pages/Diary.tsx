@@ -6,6 +6,7 @@ import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
 import { Card } from '../components/ui/Card'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { Sheet } from '../components/ui/Sheet'
+import { endOfLocalDayISO, localDateISO as todayISO, startOfLocalDayISO } from '../lib/date'
 import { supabase } from '../lib/supabase'
 import type { Meal, MealSlot, Profile, Workout } from '../lib/types'
 import { useAuthStore } from '../store/useAuthStore'
@@ -17,14 +18,10 @@ const SLOTS: { key: MealSlot; label: string; emoji: string }[] = [
   { key: 'snack', label: 'Snacks', emoji: '🍎' },
 ]
 
-function todayISO() {
-  return new Date().toISOString().slice(0, 10)
-}
-
 function shiftDate(date: string, days: number) {
   const d = new Date(`${date}T00:00:00`)
   d.setDate(d.getDate() + days)
-  return d.toISOString().slice(0, 10)
+  return todayISO(d)
 }
 
 function formatDateLabel(date: string) {
@@ -58,8 +55,8 @@ export function Diary() {
         .from('meals')
         .select('*')
         .eq('user_id', userId)
-        .gte('logged_at', `${date}T00:00:00`)
-        .lt('logged_at', `${shiftDate(date, 1)}T00:00:00`)
+        .gte('logged_at', startOfLocalDayISO(date))
+        .lt('logged_at', endOfLocalDayISO(date))
         .order('logged_at', { ascending: true })
       if (error) throw error
       return data as Meal[]
@@ -75,9 +72,11 @@ export function Diary() {
     },
   })
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: ['meals', userId, date] })
-    queryClient.invalidateQueries({ queryKey: ['workouts', userId, date] })
+  async function invalidate() {
+    await Promise.all([
+      queryClient.refetchQueries({ queryKey: ['meals', userId, date], exact: true }),
+      queryClient.refetchQueries({ queryKey: ['workouts', userId, date], exact: true }),
+    ])
     setAddMealSlot(null)
     setAddWorkoutOpen(false)
   }

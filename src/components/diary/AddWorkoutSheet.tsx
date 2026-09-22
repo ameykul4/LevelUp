@@ -6,7 +6,7 @@ import type { SetEntry, WorkoutType } from '../../lib/types'
 interface AddWorkoutSheetProps {
   userId: string
   date: string
-  onSaved: () => void
+  onSaved: () => void | Promise<void>
 }
 
 const EMPTY_SET: SetEntry = { exercise: '', weight: 0, reps: 0 }
@@ -36,12 +36,13 @@ export function AddWorkoutSheet({ userId, date, onSaved }: AddWorkoutSheetProps)
       done_on: date,
     })
 
-    setSaving(false)
     if (insertError) {
       setError(insertError.message)
+      setSaving(false)
       return
     }
-    onSaved()
+    await onSaved()
+    setSaving(false)
   }
 
   return (

@@ -2,14 +2,11 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
+import { localDateISO as todayISO } from '../lib/date'
 import { ensureTodayQuests } from '../lib/quests'
 import { supabase } from '../lib/supabase'
 import type { Profile } from '../lib/types'
 import { useAuthStore } from '../store/useAuthStore'
-
-function todayISO() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 function Slider({
   label,

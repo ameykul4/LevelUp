@@ -1,3 +1,4 @@
+import { loggedAtForDate } from './date'
 import { supabase } from './supabase'
 import type { MealSlot } from './types'
 
@@ -54,7 +55,7 @@ export async function saveAnalyzedMeal(params: {
     sodium_mg: result.sodium_mg ?? null,
     source,
     ai_raw: result.ai_raw ?? null,
-    logged_at: `${date}T${new Date().toTimeString().slice(0, 8)}`,
+    logged_at: loggedAtForDate(date),
   })
   if (error) throw error
 }

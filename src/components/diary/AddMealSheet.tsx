@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { lazy, Suspense, useRef, useState } from 'react'
 import { Button } from '../../components/ui/Button'
+import { loggedAtForDate } from '../../lib/date'
 import { analyzeMeal, saveAnalyzedMeal, type AnalyzeMealResult } from '../../lib/gemini'
 import { blobToBase64 } from '../../lib/media'
 import { lookupBarcode, type BarcodeProduct } from '../../lib/openFoodFacts'
@@ -17,7 +18,7 @@ interface AddMealSheetProps {
   userId: string
   date: string
   defaultSlot: MealSlot
-  onSaved: () => void
+  onSaved: () => void | Promise<void>
 }
 
 interface DraftMeal {
@@ -219,7 +220,7 @@ export function AddMealSheet({ userId, date, defaultSlot, onSaved }: AddMealShee
           grams: draft.grams ? Number(draft.grams) : null,
           barcode: resultSource === 'barcode' ? barcode : null,
           source: resultSource,
-          logged_at: `${date}T${new Date().toTimeString().slice(0, 8)}`,
+          logged_at: loggedAtForDate(date),
         })
         if (insertError) throw insertError
       }
@@ -239,7 +240,7 @@ export function AddMealSheet({ userId, date, defaultSlot, onSaved }: AddMealShee
         })
       }
 
-      onSaved()
+      await onSaved()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not save meal')
     } finally {

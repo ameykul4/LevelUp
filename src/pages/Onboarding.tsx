@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
+import { localDateISO } from '../lib/date'
 import { supabase } from '../lib/supabase'
 import {
   ageFromBirthDate,
@@ -88,7 +89,7 @@ export function Onboarding() {
     const { error: weightError } = await supabase.from('weight_logs').insert({
       user_id: session.user.id,
       weight_kg: Number(weightKg),
-      logged_on: new Date().toISOString().slice(0, 10),
+      logged_on: localDateISO(),
     })
 
     setSaving(false)
