@@ -31,3 +31,71 @@ export interface Streak {
   freezes_available: number
   last_active_date: string | null
 }
+
+export type MealSlot = 'breakfast' | 'lunch' | 'dinner' | 'snack'
+export type MealSource = 'ai' | 'manual' | 'voice' | 'barcode' | 'saved'
+
+export interface Meal {
+  id: string
+  user_id: string
+  meal_slot: MealSlot
+  photo_url: string | null
+  barcode: string | null
+  name: string
+  calories: number
+  protein_g: number
+  carbs_g: number
+  fat_g: number
+  fiber_g: number
+  sugar_g: number | null
+  sodium_mg: number | null
+  portion_note: string | null
+  grams: number | null
+  source: MealSource
+  ai_raw: unknown
+  logged_at: string
+}
+
+export type WorkoutType = 'strength' | 'cardio' | 'mobility' | 'rest'
+
+export interface SetEntry {
+  exercise: string
+  weight: number
+  reps: number
+}
+
+export interface Workout {
+  id: string
+  user_id: string
+  workout_type: WorkoutType
+  duration_min: number | null
+  sets: SetEntry[] | null
+  calories_burned: number | null
+  done_on: string
+  logged_at: string
+}
+
+export interface DailyCheckin {
+  id: string
+  user_id: string
+  checkin_date: string
+  sleep_quality: number
+  energy: number
+  mood: number
+  note: string | null
+}
+
+export type QuestKind = 'steps' | 'protein' | 'workout' | 'rest' | 'water' | 'photo'
+export type QuestCategory = 'strength' | 'agility' | 'recovery' | 'shield' | 'recon'
+
+export interface Quest {
+  id: string
+  user_id: string
+  quest_date: string
+  kind: QuestKind
+  quest_category: QuestCategory | null
+  target: number
+  progress: number
+  completed: boolean
+  xp_reward: number
+}

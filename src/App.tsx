@@ -1,8 +1,11 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { BottomNav } from './components/nav/BottomNav'
 import { supabase } from './lib/supabase'
 import { Auth } from './pages/Auth'
+import { CheckIn } from './pages/CheckIn'
+import { Diary } from './pages/Diary'
 import { Home } from './pages/Home'
 import { Onboarding } from './pages/Onboarding'
 import { useAuthStore } from './store/useAuthStore'
@@ -13,6 +16,17 @@ function Splash() {
   return (
     <div className="flex-1 flex items-center justify-center bg-together">
       <p className="font-display text-2xl text-white">LevelUp</p>
+    </div>
+  )
+}
+
+function AppShell() {
+  return (
+    <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        <Outlet />
+      </div>
+      <BottomNav />
     </div>
   )
 }
@@ -56,7 +70,6 @@ function Gate() {
         }
       />
       <Route
-        path="/"
         element={
           !session ? (
             <Navigate to="/auth" replace />
@@ -65,10 +78,14 @@ function Gate() {
           ) : !onboarded ? (
             <Navigate to="/onboarding" replace />
           ) : (
-            <Home />
+            <AppShell />
           )
         }
-      />
+      >
+        <Route path="/" element={<Home />} />
+        <Route path="/diary" element={<Diary />} />
+        <Route path="/checkin" element={<CheckIn />} />
+      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
