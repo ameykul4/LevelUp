@@ -115,6 +115,24 @@ export interface Measurement {
   thigh_cm: number | null
 }
 
+export interface XpEvent {
+  id: string
+  user_id: string
+  amount: number
+  reason: string
+  for_date: string
+  created_at: string
+}
+
+export interface LootDrop {
+  id: string
+  user_id: string
+  type: string
+  payload: { date?: string } | null
+  claimed: boolean
+  created_at: string
+}
+
 export interface SharingPrefs {
   user_id: string
   weight_visible: boolean

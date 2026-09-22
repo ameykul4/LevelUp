@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
+import { LootDropCard } from '../components/home/LootDropCard'
 import { TogetherCard } from '../components/home/TogetherCard'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
@@ -39,6 +40,15 @@ export function Home() {
       const { data, error } = await supabase.from('streaks').select('*').eq('user_id', userId).single()
       if (error) throw error
       return data as Streak
+    },
+  })
+
+  const { data: totalXp = 0 } = useQuery({
+    queryKey: ['total-xp', userId],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('xp_events').select('amount').eq('user_id', userId)
+      if (error) throw error
+      return data.reduce((sum, e) => sum + e.amount, 0)
     },
   })
 
@@ -146,10 +156,13 @@ export function Home() {
             🔥 {streak?.current_streak ?? 0} <span className="text-lg text-ink-soft">day streak</span>
           </p>
         </div>
-        <p className="text-sm text-ink-soft">❄️ {streak?.freezes_available ?? 0} freezes available</p>
+        <p className="text-sm text-ink-soft">
+          ❄️ {streak?.freezes_available ?? 0} freezes available · ⚡ {totalXp.toLocaleString()} XP
+        </p>
       </div>
 
       <PendingMealsBanner />
+      <LootDropCard userId={userId} />
 
       {!checkin ? (
         <Card tint="her" className="flex items-center justify-between gap-3">
