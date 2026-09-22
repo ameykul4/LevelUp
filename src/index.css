@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+:root {
+  --paper: #fcfbfc; /* clean airy near-white (NOT cream) */
+  --surface: #ffffff;
+  --ink: #23222b; /* warm-cool charcoal, never pure black */
+  --ink-soft: #77757f;
+
+  /* YOU — aqua-blue, athletic/cool */
+  --you: #14b8c4;
+  --you-deep: #0b7c93;
+  --you-tint: #e4f6f8;
+
+  /* HER — coral-pink, soft/aspirational */
+  --her: #fb6f92;
+  --her-deep: #e24e73;
+  --her-tint: #ffecf1;
+
+  /* TOGETHER — the couple gradient */
+  --together: linear-gradient(105deg, #14b8c4, #fb6f92);
+
+  --grow: #2fbf87; /* progress / success mint */
+  --loot: #f5b841; /* XP / rewards gold */
+  --calm: #9b8cff; /* rest / sleep / recovery lavender */
+
+  --shadow-you: 0 8px 24px -8px rgba(20, 184, 196, 0.2);
+  --shadow-her: 0 8px 24px -8px rgba(251, 111, 146, 0.2);
+  --radius: 22px;
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  color-scheme: light;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+
+  --color-you: var(--you);
+  --color-you-deep: var(--you-deep);
+  --color-you-tint: var(--you-tint);
+
+  --color-her: var(--her);
+  --color-her-deep: var(--her-deep);
+  --color-her-tint: var(--her-tint);
+
+  --color-grow: var(--grow);
+  --color-loot: var(--loot);
+  --color-calm: var(--calm);
+
+  --radius-app: var(--radius);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-feature-settings: 'tnum' 1;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+img {
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.bg-together {
+  background: var(--together);
+}
+
+.shadow-you {
+  box-shadow: var(--shadow-you);
+}
+
+.shadow-her {
+  box-shadow: var(--shadow-her);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
