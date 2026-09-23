@@ -13,6 +13,7 @@ import { useAuthStore } from './store/useAuthStore'
 
 const Photos = lazy(() => import('./pages/Photos').then((m) => ({ default: m.Photos })))
 const Reports = lazy(() => import('./pages/Reports').then((m) => ({ default: m.Reports })))
+const Together = lazy(() => import('./pages/Together').then((m) => ({ default: m.Together })))
 
 const queryClient = new QueryClient()
 
@@ -102,6 +103,14 @@ function Gate() {
           element={
             <Suspense fallback={<Splash />}>
               <Reports />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/together"
+          element={
+            <Suspense fallback={<Splash />}>
+              <Together />
             </Suspense>
           }
         />

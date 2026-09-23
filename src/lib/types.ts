@@ -140,6 +140,33 @@ export interface LootDrop {
   created_at: string
 }
 
+export interface CampaignLandmark {
+  distance_km: number
+  name: string
+  biome: string
+}
+
+export interface CampaignMap {
+  couple_id: string
+  total_distance_km: number
+  distance_covered_km: number
+  current_landmark: string | null
+  season: string
+  biome: string
+}
+
+export interface CoOpBoss {
+  id: string
+  couple_id: string
+  name: string
+  theme: string
+  max_hp: number
+  current_hp: number
+  your_damage: number
+  her_damage: number
+  status: 'active' | 'defeated' | 'escaped'
+}
+
 export interface SharingPrefs {
   user_id: string
   weight_visible: boolean

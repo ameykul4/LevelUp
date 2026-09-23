@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 const ITEMS = [
   { to: '/', label: 'Home', emoji: '🏠' },
   { to: '/diary', label: 'Diary', emoji: '📔' },
+  { to: '/together', label: 'Together', emoji: '🗺' },
   { to: '/photos', label: 'Photos', emoji: '📸' },
   { to: '/reports', label: 'Reports', emoji: '📊' },
   { to: '/settings', label: 'Settings', emoji: '⚙️' },
