@@ -70,7 +70,7 @@ let widget
 try {
   const data = await fetchData(token)
   widget = createWidget(data)
-} catch (e) {
+} catch {
   widget = new ListWidget()
   widget.backgroundColor = new Color(PAPER)
   addLine(widget, "LevelUp", { color: INK_COLOR, size: 16, bold: true })

@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { PendingMealsBanner } from '../components/diary/PendingMealsBanner'
+import { CoverPrompt } from '../components/home/CoverPrompt'
 import { LootDropCard } from '../components/home/LootDropCard'
 import { StepsCard } from '../components/home/StepsCard'
 import { TogetherCard } from '../components/home/TogetherCard'
@@ -164,6 +165,7 @@ export function Home() {
 
       <PendingMealsBanner />
       <LootDropCard userId={userId} />
+      <CoverPrompt userId={userId} />
 
       {!checkin ? (
         <Card tint="her" className="flex items-center justify-between gap-3">
